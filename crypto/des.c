@@ -64,21 +64,21 @@ void des_key_schedule(uint64_t key, uint64_t subkey[16])
     for (int n = 0; n < 16; n++)
     {
         key = (n < 2 || n == 8 || n == 15) ? ROT1(key) : ROT2(key);
-        subkey[n] = key;
+        uint64_t skey = key;
         
         // Permuted Choice 2
-        DELTA_SWAP(subkey[n], tmp,  1, UINT64_C(0x0511010550050400));
-        DELTA_SWAP(subkey[n], tmp,  2, UINT64_C(0x1220100133102000));
-        DELTA_SWAP(subkey[n], tmp, 16, UINT64_C(0x000076ba00000000));
-        DELTA_SWAP(subkey[n], tmp, 32, UINT64_C(0x0000000020801100));
-        DELTA_SWAP(subkey[n], tmp,  8, UINT64_C(0x0034005a00e60047));
-        DELTA_SWAP(subkey[n], tmp,  4, UINT64_C(0x0f01020e060a0304));
-        DELTA_SWAP(subkey[n], tmp, 32, UINT64_C(0x0000000000270103));
-        DELTA_SWAP(subkey[n], tmp, 16, UINT64_C(0x000096ad00008345));
-        DELTA_SWAP(subkey[n], tmp,  2, UINT64_C(0x0033021302200000));
-        DELTA_SWAP(subkey[n], tmp,  1, UINT64_C(0x5044401414050000));
+        DELTA_SWAP(skey, tmp,  1, UINT64_C(0x0511010550050400));
+        DELTA_SWAP(skey, tmp,  2, UINT64_C(0x1220100133102000));
+        DELTA_SWAP(skey, tmp, 16, UINT64_C(0x000076ba00000000));
+        DELTA_SWAP(skey, tmp, 32, UINT64_C(0x0000000020801100));
+        DELTA_SWAP(skey, tmp,  8, UINT64_C(0x0034005a00e60047));
+        DELTA_SWAP(skey, tmp,  4, UINT64_C(0x0f01020e060a0304));
+        DELTA_SWAP(skey, tmp, 32, UINT64_C(0x0000000000270103));
+        DELTA_SWAP(skey, tmp, 16, UINT64_C(0x000096ad00008345));
+        DELTA_SWAP(skey, tmp,  2, UINT64_C(0x0033021302200000));
+        DELTA_SWAP(skey, tmp,  1, UINT64_C(0x5044401414050000));
 
-        subkey[n] >>= 16;
+        subkey[n] = skey >> 16;
     }
 }
 
